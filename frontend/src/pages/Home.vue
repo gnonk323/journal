@@ -3,6 +3,8 @@ import { defineComponent, nextTick } from 'vue'
 import { createEntryService, getTodayEntriesService } from '../services/entries'
 import { formatDateLong } from '../lib/utils'
 import { IJournalEntriesByDayResponse } from '../types/Entry';
+import { logoutService } from '../services/auth';
+import router from '../router';
 
 export default defineComponent({
   name: "Home",
@@ -66,7 +68,6 @@ export default defineComponent({
     async getTodayEntries() {
       try {
         const data = await getTodayEntriesService()
-        console.log(data)
         this.todayEntries = data
       } catch (error: any) {
         console.error("Error while loading today's entries", error)
@@ -75,6 +76,14 @@ export default defineComponent({
         } else {
           this.error = error.message || String(error)
         }
+      }
+    },
+    async logout() {
+      try {
+        await logoutService()
+        router.push("/")
+      } catch (error) {
+        console.error("Error while logging out", error)
       }
     }
   },
@@ -148,12 +157,18 @@ export default defineComponent({
       </div>
     </div>
     <div v-else class="max-w-4xl w-full p-6">
-      <div class="mb-8 flex items-start justify-between">
+      <div class="mb-8 flex items-start justify-between md:flex-row flex-col-reverse gap-4">
         <div>
           <h1 class="text-3xl font-bold text-left mb-2">{{ dateString }}</h1>
           <p class="text-neutral-500">{{ `${!todayEntries || todayEntries?.count === 0 ? "No" : todayEntries.count} entries today.` }} Write something!</p>
         </div>
         <div class="flex items-center gap-2">
+          <button
+            @click="logout"
+            class="rounded-lg p-3 flex items-center justify-center border dark:border-neutral-500 border-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+          >
+            <i class="pi pi-lock" />
+          </button>
           <RouterLink
             to="/days/today"
             class="rounded-lg p-3 flex items-center justify-center border dark:border-neutral-500 border-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700"

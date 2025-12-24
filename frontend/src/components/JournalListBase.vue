@@ -29,7 +29,7 @@ export default defineComponent({
 
 <template>
   <div class="max-w-4xl w-full mx-auto p-6 space-y-4">
-    <div class="mb-8 flex items-start justify-between">
+    <div class="mb-8 flex items-start justify-between md:flex-row flex-col-reverse gap-4">
       <div>
         <h1 class="text-3xl font-bold">{{ title }}</h1>
         <p v-if="dateString" class="text-sm text-neutral-500">{{ dateString }}</p>
@@ -42,7 +42,7 @@ export default defineComponent({
           <i class="pi pi-calendar" />
         </RouterLink>
         <RouterLink
-          to="/"
+          to="/home"
           class="rounded-lg p-3 flex items-center justify-center border dark:border-neutral-500 border-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700"
         >
           <i class="pi pi-home" />
@@ -52,7 +52,7 @@ export default defineComponent({
 
     <RouterLink
       v-if="showNewEntryButton"
-      to="/"
+      to="/home"
       class="px-3 py-2 rounded-lg dark:bg-neutral-100 dark:text-neutral-900 bg-neutral-900 text-neutral-100 disabled:opacity-50 flex items-center gap-3 justify-center mb-8"
     >
       <i class="pi pi-pencil" /> Make another entry

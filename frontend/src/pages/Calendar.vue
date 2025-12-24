@@ -95,7 +95,7 @@ export default defineComponent({
         </button>
         <br />
         <RouterLink
-          to="/"
+          to="/home"
           class="rounded-lg p-3 flex items-center justify-center border dark:border-neutral-500 border-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700"
         >
           <i class="pi pi-home" />

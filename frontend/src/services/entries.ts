@@ -1,5 +1,5 @@
 import { IJournalEntriesByDayResponse, IJournalEntriesResponse } from './../types/Entry';
-import { api } from "./api"
+import api from "../lib/api"
 import { ICreateEntry } from "../types/Entry"
 
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone
