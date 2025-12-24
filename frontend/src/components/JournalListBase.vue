@@ -10,7 +10,7 @@ export default defineComponent({
     title: { type: String, default: "Journal Entries" },
     dateString: { type: String, required: false },
     entries: { type: Array as PropType<IJournalEntry[]>, default: () => [] },
-    showNewEntryButton: { type: Boolean, default: false }
+    today: { type: Boolean, default: false }
   },
   emits: ['delete-entry'],
   data() {
@@ -51,11 +51,12 @@ export default defineComponent({
     </div>
 
     <RouterLink
-      v-if="showNewEntryButton"
+      v-if="today"
       to="/home"
       class="px-3 py-2 rounded-lg dark:bg-neutral-100 dark:text-neutral-900 bg-neutral-900 text-neutral-100 disabled:opacity-50 flex items-center gap-3 justify-center mb-8"
     >
-      <i class="pi pi-pencil" /> Make another entry
+      <i class="pi pi-pencil" />
+      {{ sortedEntries.length > 0 ? "Make another entry" : "Make an entry" }}
     </RouterLink>
 
     <div v-if="sortedEntries.length > 1">
@@ -64,12 +65,17 @@ export default defineComponent({
         Sort
       </button>
     </div>
-
-    <JournalEntryCard
-      v-for="entry in sortedEntries"
-      :key="entry._id"
-      :entry="entry"
-      @deleted="$emit('delete-entry', $event)"
-    />
+    <div v-if="sortedEntries.length > 0" class="space-y-4">
+      <JournalEntryCard
+        v-for="entry in sortedEntries"
+        :key="entry._id"
+        :entry="entry"
+        @deleted="$emit('delete-entry', $event)"
+      />
+    </div>
+    <div v-else class="text-center text-neutral-500">
+      <p v-if="today">No journal entries yet today. Write about your day!</p>
+      <p v-else>No journal entries for this date :(</p>
+    </div>
   </div>
 </template>

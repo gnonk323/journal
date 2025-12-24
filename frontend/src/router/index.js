@@ -33,6 +33,11 @@ const routes = [
     component: () => import('../pages/Calendar.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/:pathMatch(.*)*', // everything else
+    name: 'NotFound',
+    component: () => import('../components/NotFound.vue'),
+  },
 ]
 
 const router = createRouter({

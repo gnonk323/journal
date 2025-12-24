@@ -49,7 +49,7 @@ export default defineComponent({
     :date-string="dateString"
     :entries="data?.entries"
     :loading="loading"
-    :show-new-entry-button="true"
+    :today="true"
     @delete-entry="removeEntry"
   />
 </template>
