@@ -1,0 +1,35 @@
+services:
+
+  mongo:
+    image: mongo:latest
+    container_name: journal_mongo
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
+  server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: journal_backend
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - mongo
+    restart: always
+
+  client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: journal_frontend
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "0.0.0.0:9999:80"
+    depends_on:
+      - server
+    restart: always
+
+volumes:
+  mongo_data:

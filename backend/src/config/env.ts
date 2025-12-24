@@ -1,6 +1,6 @@
 export const env = {
   mongoUri: String(process.env.MONGO_URI),
-  port: Number(process.env.PORT) || 5000,
+  port: Number(process.env.PORT) || 3000,
   apiKey: String(process.env.API_KEY),
   jwtSecret: String(process.env.JWT_SECRET),
   passwordHash: String(process.env.PASSWORD_HASH),
